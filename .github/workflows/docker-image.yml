@@ -28,7 +28,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Build Docker Compose services
         run: docker-compose build
-      - name: Run Breakman
-        run: docker-compose run --rm web bundle exec breakman -q -w2
+      - name: Run Brakeman
+        run: docker-compose run --rm web bundle exec brakeman -q -w2
       - name: Run Rubocop
         run: docker-compose run --rm web bundle exec rubocop --parallel
