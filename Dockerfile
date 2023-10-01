@@ -13,7 +13,7 @@ RUN apk add --update --no-cache \
       curl
 
 # Install NVM
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+RUN wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
 
 # Set the working directory in the container to /app
 WORKDIR /app
@@ -31,7 +31,7 @@ RUN bundle install
 COPY package.json yarn.lock .nvmrc ./
 
 # Install any needed packages specified in package.json
-RUN yarn install --check-files
+RUN yarn install
 
 # Copy the current directory contents into the container at /app
 COPY . .
