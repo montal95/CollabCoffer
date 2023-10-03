@@ -28,6 +28,12 @@ gem 'jbuilder', '~> 2.7'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 
+#  Vite is a build tool that aims to provide a faster and leaner development experience for modern web projects.
+gem 'vite_rails', '~> 2.0'
+
+# Installs Foreman, a tool for managing Procfile-based applications.
+gem 'foreman', '~> 0.87.2'
+
 group :development, :test do
   gem 'debug', platforms: %i[mri mingw x64_mingw]
 
