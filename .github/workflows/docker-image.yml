@@ -14,8 +14,19 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+      - name: Cache Docker layers
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
       - name: Build Docker Compose services
-        run: docker-compose build
+        run: |
+          docker-compose build --build-arg BUILDKIT_INLINE_CACHE=1
+          docker-compose push
       - name: Prepare the Rails test database
         run: docker-compose run --rm web bundle exec rails db:test:prepare
       # TODO: Uncomment the following lines once the test suite is ready
@@ -26,8 +37,19 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+      - name: Cache Docker layers
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
       - name: Build Docker Compose services
-        run: docker-compose build
+        run: |
+          docker-compose build --build-arg BUILDKIT_INLINE_CACHE=1
+          docker-compose push
       - name: Run Brakeman
         run: docker-compose run --rm web bundle exec brakeman -q -w2
       - name: Run Rubocop
