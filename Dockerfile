@@ -1,5 +1,5 @@
 # Use an official Ruby runtime as a parent image
-FROM ruby:3.0.1-alpine
+FROM ruby:3.0.5-alpine
 
 # Install necessary packages
 RUN apk add --update --no-cache \
