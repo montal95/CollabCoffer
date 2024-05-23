@@ -28,10 +28,10 @@ jobs:
           docker-compose build --build-arg BUILDKIT_INLINE_CACHE=1
           docker-compose push
       - name: Prepare the Rails test database
-        run: docker-compose run --rm web bundle exec rails db:test:prepare
+        run: docker-compose run --rm app bundle exec rails db:test:prepare
       # TODO: Uncomment the following lines once the test suite is ready
       # - name: Run the Rails test suite
-      #   run: docker-compose run --rm web bundle exec rspec
+      #   run: docker-compose run --rm app bundle exec rspec
   linting:
     runs-on: ubuntu-latest
     steps:
@@ -51,6 +51,6 @@ jobs:
           docker-compose build --build-arg BUILDKIT_INLINE_CACHE=1
           docker-compose push
       - name: Run Brakeman
-        run: docker-compose run --rm web bundle exec brakeman -q -w2
+        run: docker-compose run --rm app bundle exec brakeman -q -w2
       - name: Run Rubocop
-        run: docker-compose run --rm web bundle exec rubocop --parallel
+        run: docker-compose run --rm app bundle exec rubocop --parallel

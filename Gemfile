@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.0.2'
+ruby '3.3.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '7.1.0.beta1'
@@ -22,6 +22,9 @@ gem 'jbuilder', '~> 2.7'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
+gem 'rdoc'
+gem 'psych'
+gem 'stringio'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
@@ -64,6 +67,7 @@ group :test do
   gem 'selenium-webdriver', '>= 4.0.0.rc1'
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'webdrivers'
+  gem 'rubocop-capybara', '~> 2.20'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
