@@ -1,0 +1,10 @@
+{
+  "name": "CollabCoffer",
+  "dockerComposeFile": ["../docker-compose.yml"],
+  "service": "app",
+  "workspaceFolder": "/opt/app",
+  "settings": {
+    "terminal.integrated.shell.linux": "/bin/bash"
+  },
+  "extensions": []
+}
