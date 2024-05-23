@@ -1,5 +1,5 @@
 # Base stage
-FROM ruby:3.0.2-alpine3.14 as base
+FROM ruby:3.3.1-alpine3.20 as base
 ENV BUILD_PACKAGES="build-base postgresql-dev nodejs npm yarn tzdata bash curl" \
     APP_HOME="/opt/app"
 RUN apk update \
