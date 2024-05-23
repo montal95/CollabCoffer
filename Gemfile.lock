@@ -316,15 +316,18 @@ DEPENDENCIES
   jbuilder (~> 2.7)
   listen (~> 3.3)
   pg (~> 1.1)
+  psych
   puma (~> 6.0)
   rack-mini-profiler (~> 2.0)
   rails (= 7.1.0.beta1)
+  rdoc
   rubocop
   rubocop-rails
   ruby_audit
   sass-rails (>= 6)
   selenium-webdriver (>= 4.0.0.rc1)
   spring
+  stringio
   turbolinks (~> 5)
   tzinfo-data
   vite_rails (~> 2.0)

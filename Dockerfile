@@ -1,43 +1,28 @@
-# Use an official Ruby runtime as a parent image
-FROM ruby:3.0.2-alpine
+# Base stage
+FROM ruby:3.0.2-alpine3.14 as base
+ENV BUILD_PACKAGES="build-base postgresql-dev nodejs npm yarn tzdata bash curl" \
+    APP_HOME="/opt/app"
+RUN apk update \
+    && apk upgrade \
+    && apk add --no-cache $BUILD_PACKAGES \
+    && rm -rf /var/cache/apk/*
 
-# Install necessary packages
-RUN apk add --update --no-cache \
-      build-base \
-      postgresql-dev \
-      nodejs \
-      npm \
-      yarn \
-      tzdata \
-      bash \
-      curl
+WORKDIR $APP_HOME
 
-# Install NVM
-RUN wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-
-# Set the working directory in the container to /app
-WORKDIR /app
-
-# Copy the Gemfile and Gemfile.lock into the container
+# Bundle stage
+FROM base AS bundle
 COPY Gemfile Gemfile.lock ./
+RUN gem install bundler:2.4.19 && \
+    bundle install
 
-# Install Bundler 2.4.19
-RUN gem install bundler:2.4.19
+# Yarn stage
+FROM bundle AS yarn
+COPY package.json yarn.lock ./
+RUN apk add --update --no-cache yarn && \
+    yarn install
 
-# Install any needed packages specified in Gemfile
-RUN bundle install
-
-# Copy the package.json, yarn.lock, and .nvmrc into the container
-COPY package.json yarn.lock .nvmrc ./
-
-# Install any needed packages specified in package.json
-RUN yarn install
-
-# Copy the current directory contents into the container at /app
+# Final stage
+FROM yarn as dev-server
 COPY . .
-
-# Expose port 3000 for the Rails server
 EXPOSE 3000
-
-# Start the main process.
 CMD ["foreman", "start"]

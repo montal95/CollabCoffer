@@ -6,16 +6,26 @@ services:
       - ./tmp/db:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: password
-  web:
+    networks:
+      - app-network
+
+  app:
     build: .
     command: foreman start
     volumes:
-      - .:/app
+      - .:/opt/app
+      - gems_volume:/usr/local/bundle
+      - node_modules_volume:/opt/app/node_modules
     ports:
       - "3000:3000"
     depends_on:
       - db
+    networks:
+      - app-network
+
+volumes:
+  gems_volume:
+  node_modules_volume:
 
 networks:
-  default:
-    name: collab-coffer-network
+  app-network:
