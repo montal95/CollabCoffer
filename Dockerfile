@@ -1,6 +1,6 @@
 # Base stage
 FROM ruby:3.3.1-alpine3.20 as base
-ENV BUILD_PACKAGES="build-base postgresql-dev nodejs npm yarn tzdata bash curl" \
+ENV BUILD_PACKAGES="build-base postgresql-dev tzdata bash curl" \
     APP_HOME="/opt/app"
 RUN apk update \
     && apk upgrade \
@@ -15,14 +15,8 @@ COPY Gemfile Gemfile.lock ./
 RUN gem install bundler:2.4.19 && \
     bundle install
 
-# Yarn stage
-FROM bundle AS yarn
-COPY package.json yarn.lock ./
-RUN apk add --update --no-cache yarn && \
-    yarn install
-
 # Final stage
-FROM yarn as dev-server
+FROM bundle as dev-server
 COPY . .
 EXPOSE 3000
-CMD ["foreman", "start"]
+CMD ["bin/rails", "server", "-p", "3000", "-b", "0.0.0.0"]
