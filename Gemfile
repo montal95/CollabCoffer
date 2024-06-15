@@ -4,15 +4,13 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.3.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
-gem 'rails', '7.1.0.beta1'
+gem 'rails', '7.1.0'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 1.1'
 # Use Puma as the app server
 gem 'puma', '~> 6.0'
 # Use SCSS for stylesheets
 gem 'sass-rails', '>= 6'
-# Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
-gem 'webpacker', '~> 5.0'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -30,12 +28,6 @@ gem 'stringio'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
-
-#  Vite is a build tool that aims to provide a faster and leaner development experience for modern web projects.
-gem 'vite_rails', '~> 2.0'
-
-# Installs Foreman, a tool for managing Procfile-based applications.
-gem 'foreman', '~> 0.87.2'
 
 group :development, :test do
   gem 'debug', platforms: %i[mri mingw x64_mingw]

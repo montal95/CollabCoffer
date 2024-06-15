@@ -21,6 +21,9 @@ port ENV.fetch('PORT') { 3000 }
 #
 environment ENV.fetch('RAILS_ENV') { 'development' }
 
+# Binds the server to the specified IP, by default it is 0.0.0.0 in development
+bind "tcp://#{ENV.fetch('BIND_TO') { '0.0.0.0' }}:#{ENV['PORT'] || 3000}"
+
 # Specifies the `pidfile` that Puma will use.
 pidfile ENV.fetch('PIDFILE') { 'tmp/pids/server.pid' }
 
